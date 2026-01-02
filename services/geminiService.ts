@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { PlantAnalysisResult } from "../types";
 
 // Initialize the client
@@ -17,33 +17,15 @@ export const analyzePlantImage = async (base64Image: string, language: 'en' | 'p
     ? `Analise esta imagem agrícola para o "Sisteminha Embrapa". 
        Identifique a planta.
        Verifique se há pragas, doenças ou deficiências nutricionais visíveis.
-       Estime o estágio de crescimento e prontidão para colheita.
-       Retorne APENAS um JSON válido (sem markdown) com este formato:
-       {
-         "plantName": "Nome da planta",
-         "healthStatus": "Healthy" | "Disease Detected" | "Nutrient Deficiency" | "Unknown",
-         "confidence": 0-100,
-         "diagnosis": "Breve explicação do problema ou estado",
-         "recommendations": ["Ação 1", "Ação 2"],
-         "harvestReady": boolean
-       }`
+       Estime o estágio de crescimento e prontidão para colheita.`
     : `Analyze this agricultural image for "Sisteminha Embrapa". 
        Identify the plant.
        Check for pests, diseases, or nutrient deficiencies.
-       Estimate growth stage and harvest readiness.
-       Return ONLY valid JSON (no markdown) with this format:
-       {
-         "plantName": "Plant Name",
-         "healthStatus": "Healthy" | "Disease Detected" | "Nutrient Deficiency" | "Unknown",
-         "confidence": 0-100,
-         "diagnosis": "Brief explanation of issue or state",
-         "recommendations": ["Action 1", "Action 2"],
-         "harvestReady": boolean
-       }`;
+       Estimate growth stage and harvest readiness.`;
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
+      model: 'gemini-3-flash-preview',
       contents: {
         parts: [
           {
@@ -57,13 +39,31 @@ export const analyzePlantImage = async (base64Image: string, language: 'en' | 'p
           },
         ],
       },
+      config: {
+        responseMimeType: 'application/json',
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            plantName: { type: Type.STRING },
+            healthStatus: { 
+              type: Type.STRING, 
+              enum: ['Healthy', 'Disease Detected', 'Nutrient Deficiency', 'Unknown'] 
+            },
+            confidence: { type: Type.NUMBER },
+            diagnosis: { type: Type.STRING },
+            recommendations: { 
+              type: Type.ARRAY,
+              items: { type: Type.STRING }
+            },
+            harvestReady: { type: Type.BOOLEAN }
+          },
+          required: ['plantName', 'healthStatus', 'confidence', 'diagnosis', 'recommendations', 'harvestReady']
+        }
+      }
     });
 
-    const text = response.text || '';
-    // Clean up markdown code blocks if present
-    const jsonString = text.replace(/```json/g, '').replace(/```/g, '').trim();
-    
-    return JSON.parse(jsonString) as PlantAnalysisResult;
+    const text = response.text || '{}';
+    return JSON.parse(text) as PlantAnalysisResult;
   } catch (error) {
     console.error("Gemini Analysis Error:", error);
     // Fallback error result

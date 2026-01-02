@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   CheckCircle2, Circle, ChevronDown, ChevronUp, 
@@ -50,7 +51,7 @@ interface BudgetItem {
   category: 'Structure' | 'Hydraulics' | 'Biofilter' | 'Garden' | 'Animals' | 'Tools' | 'Labor';
 }
 
-// --- JATOBA IMPLEMENTATION DATA ---
+// --- JATOBA IMPLEMENTATION DATA (Tier 1) ---
 
 const JATOBA_ROADMAP: Phase[] = [
   {
@@ -190,56 +191,370 @@ const getUnitColor = (category: string) => {
   }
 };
 
+// --- TIER 3 IMPLEMENTATION DATA (Complete 6 Units) ---
+
 const TIER_3_ROADMAPS: Record<string, Phase[]> = {
-  't3_1': [ // Cattle
+  // UNIT 1: CATTLE (60% Complete)
+  't3_1': [ 
     {
       id: 'p1',
       title: 'Phase 1: Foundation',
-      duration: 'Weeks 1-4',
-      status: 'active',
+      duration: 'Weeks 1-2',
+      status: 'completed',
       steps: [
         {
           id: 's1',
-          title: 'Design Confinement',
-          icon: Ruler,
-          description: 'Layout, lots, management corridor.',
+          title: 'Site Preparation',
+          icon: Map,
+          description: 'Surveying and drainage.',
           tasks: [
-            { id: 't1_1', text: 'Topographic survey', isCompleted: true },
-            { id: 't1_2', text: 'Design drainage slope (3%)', isCompleted: true },
-            { id: 't1_3', text: 'Define lot capacity (120 head)', isCompleted: true },
-            { id: 't1_4', text: 'Plan feeding lane width (4m)', isCompleted: false },
+            { id: 't1_1', text: 'Topographic survey of 2ha area', isCompleted: true },
+            { id: 't1_2', text: 'Establish drainage slope (3%)', isCompleted: true },
+            { id: 't1_3', text: 'Install perimeter fencing (5-strand)', isCompleted: true },
           ]
         },
         {
           id: 's2',
-          title: 'Infrastructure Build',
-          icon: Hammer,
-          description: 'Feed bunks, water troughs, flooring.',
+          title: 'Water Infrastructure',
+          icon: Droplets,
+          description: 'Piping and trough locations.',
           tasks: [
-            { id: 't2_1', text: 'Pour concrete for feeding aprons', isCompleted: false },
-            { id: 't2_2', text: 'Install shading structure (4m²/head)', isCompleted: false },
-            { id: 't2_3', text: 'Install water troughs (high flow)', isCompleted: false },
+            { id: 't2_1', text: 'Lay main 50mm PVC water line', isCompleted: true },
+            { id: 't2_2', text: 'Install 4 concrete water trough bases', isCompleted: true },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p2',
+      title: 'Phase 2: Feeding Infra',
+      duration: 'Weeks 3-4',
+      status: 'completed',
+      steps: [
+         {
+          id: 's3',
+          title: 'Feed Lane Construction',
+          icon: Hammer,
+          description: 'Concrete aprons and bunks.',
+          tasks: [
+            { id: 't3_1', text: 'Pour concrete feed apron (4m wide)', isCompleted: true },
+            { id: 't3_2', text: 'Construct J-bunk feeders', isCompleted: true },
+          ]
+         }
+      ]
+    },
+    {
+      id: 'p3',
+      title: 'Phase 3: Shade & Cooling',
+      duration: 'Weeks 5-6',
+      status: 'active',
+      steps: [
+        {
+          id: 's4',
+          title: 'Shade Structures',
+          icon: Sun,
+          description: 'Thermal comfort installation.',
+          tasks: [
+            { id: 't4_1', text: 'Install steel vertical supports', isCompleted: true },
+            { id: 't4_2', text: 'Mount UV-resistant shade cloth (80%)', isCompleted: false },
+            { id: 't4_3', text: 'Verify 4m² shade per animal', isCompleted: false },
+          ]
+        },
+        {
+          id: 's5',
+          title: 'Misting System',
+          icon: Droplets,
+          description: 'Evaporative cooling.',
+          tasks: [
+            { id: 't5_1', text: 'Install high-pressure mist line', isCompleted: false },
+            { id: 't5_2', text: 'Connect timer/thermostat controller', isCompleted: false },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p4',
+      title: 'Phase 4: Manure Mgmt',
+      duration: 'Weeks 7-8',
+      status: 'locked',
+      steps: [
+        {
+          id: 's6',
+          title: 'Collection System',
+          icon: Recycle,
+          description: 'Integration with Biodigester.',
+          tasks: [
+            { id: 't6_1', text: 'Install scraper lanes', isCompleted: false },
+            { id: 't6_2', text: 'Connect gravity pipe to Biodigester', isCompleted: false },
           ]
         }
       ]
     }
   ],
-  't3_2': [ // Biogas
+  // UNIT 2: BIOGAS (88% Complete)
+  't3_2': [ 
     {
       id: 'p1',
-      title: 'Phase 1: Build & Start-up',
-      duration: 'Weeks 1-6',
+      title: 'Phase 1: Digester Tank',
+      duration: 'Weeks 1-3',
+      status: 'completed',
+      steps: [
+        {
+          id: 's1',
+          title: 'Excavation & Lining',
+          icon: Activity,
+          description: '50m³ volume preparation.',
+          tasks: [
+            { id: 't1_1', text: 'Excavate 8m diameter pit', isCompleted: true },
+            { id: 't1_2', text: 'Install HDPE Geomembrane (1.5mm)', isCompleted: true },
+            { id: 't1_3', text: 'Leak test (48h water hold)', isCompleted: true },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p2',
+      title: 'Phase 2: Feeding System',
+      duration: 'Week 4',
+      status: 'completed',
+      steps: [
+        {
+          id: 's2',
+          title: 'Inlet Assembly',
+          icon: Hammer,
+          description: 'Mixing tank and pipework.',
+          tasks: [
+            { id: 't2_1', text: 'Build brick mixing chamber', isCompleted: true },
+            { id: 't2_2', text: 'Install inlet pipe (150mm PVC)', isCompleted: true },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p3',
+      title: 'Phase 3: Gas Collection',
+      duration: 'Weeks 5-6',
+      status: 'active',
+      steps: [
+        {
+          id: 's3',
+          title: 'Dome & Piping',
+          icon: Zap,
+          description: 'Gas capture and transport.',
+          tasks: [
+            { id: 't3_1', text: 'Install flexible PVC gas dome', isCompleted: true },
+            { id: 't3_2', text: 'Run gas line to generator/stove', isCompleted: true },
+            { id: 't3_3', text: 'Install pressure release valve', isCompleted: false },
+            { id: 't3_4', text: 'Connect H2S scrubber filter', isCompleted: false },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p4',
+      title: 'Phase 4: Effluent',
+      duration: 'Week 7',
+      status: 'locked',
+      steps: [
+        {
+          id: 's4',
+          title: 'Biofertilizer Out',
+          icon: Sprout,
+          description: 'Nutrient recovery.',
+          tasks: [
+            { id: 't4_1', text: 'Construct overflow settling tank', isCompleted: false },
+            { id: 't4_2', text: 'Pump connection to irrigation', isCompleted: false },
+          ]
+        }
+      ]
+    }
+  ],
+  // UNIT 3: SUGARCANE (40% Complete)
+  't3_3': [
+    {
+      id: 'p1',
+      title: 'Phase 1: Processing Shed',
+      duration: 'Weeks 1-3',
+      status: 'completed',
+      steps: [
+        {
+          id: 's1',
+          title: 'Structure Build',
+          icon: Warehouse,
+          description: '10x15m covered area.',
+          tasks: [
+            { id: 't1_1', text: 'Pour reinforced concrete floor', isCompleted: true },
+            { id: 't1_2', text: 'Erect steel support pillars', isCompleted: true },
+            { id: 't1_3', text: 'Install metal roofing', isCompleted: true },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p2',
+      title: 'Phase 2: Milling Equip.',
+      duration: 'Weeks 4-6',
+      status: 'active',
+      steps: [
+        {
+          id: 's2',
+          title: 'Crusher Installation',
+          icon: Factory,
+          description: 'Heavy machinery setup.',
+          tasks: [
+            { id: 't2_1', text: 'Build vibration-dampening base', isCompleted: true },
+            { id: 't2_2', text: 'Mount 3-roller sugarcane mill', isCompleted: false },
+            { id: 't2_3', text: 'Connect 15HP electric motor', isCompleted: false },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p3',
+      title: 'Phase 3: Juice Processing',
+      duration: 'Weeks 7-10',
+      status: 'locked',
+      steps: [
+        {
+          id: 's3',
+          title: 'Clarification',
+          icon: Droplets,
+          description: 'Settling tanks.',
+          tasks: [{ id: 't3_1', text: 'Install 1000L settling tanks', isCompleted: false }]
+        }
+      ]
+    },
+    {
+      id: 'p4',
+      title: 'Phase 4: Bagasse Mgmt',
+      duration: 'Week 11',
+      status: 'locked',
+      steps: [
+        {
+          id: 's4',
+          title: 'Feed Integration',
+          icon: Recycle,
+          description: 'Transport to cattle.',
+          tasks: [{ id: 't4_1', text: 'Setup chopper for bagasse', isCompleted: false }]
+        }
+      ]
+    }
+  ],
+  // UNIT 4: SOLAR (100% Complete)
+  't3_4': [
+    {
+      id: 'p1',
+      title: 'Phase 1: Installation',
+      duration: 'Completed',
+      status: 'completed',
+      steps: [
+        {
+          id: 's1',
+          title: 'System Setup',
+          icon: Sun,
+          description: '15kW Array Installation.',
+          tasks: [
+            { id: 't1_1', text: 'Roof mounting rails', isCompleted: true },
+            { id: 't1_2', text: '40x Panel wiring', isCompleted: true },
+            { id: 't1_3', text: 'Inverter grid-tie connection', isCompleted: true },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p2',
+      title: 'Phase 2: Maintenance',
+      duration: 'Ongoing',
+      status: 'active',
+      steps: [
+        {
+          id: 's2',
+          title: 'Optimization',
+          icon: Activity,
+          description: 'Routine checks.',
+          tasks: [
+            { id: 't2_1', text: 'Clean panels (Weekly)', isCompleted: false },
+            { id: 't2_2', text: 'Check inverter logs', isCompleted: true },
+          ]
+        }
+      ]
+    }
+  ],
+  // UNIT 5: AQUACULTURE (20% Complete)
+  't3_5': [
+    {
+      id: 'p1',
+      title: 'Phase 1: Excavation',
+      duration: 'Weeks 1-2',
       status: 'active',
       steps: [
         {
           id: 's1',
-          title: 'Dimensioning & Design',
-          icon: Ruler,
-          description: 'Volume calculation & substrate analysis.',
+          title: 'Tank Earthworks',
+          icon: Map,
+          description: '8 Tanks preparation.',
           tasks: [
-            { id: 't1_1', text: 'Calculate daily manure load', isCompleted: true },
-            { id: 't1_2', text: 'Determine retention time (30 days)', isCompleted: true },
-            { id: 't1_3', text: 'Select digester model (Canvas/Concrete)', isCompleted: true },
+            { id: 't1_1', text: 'Mark layout for 8 tanks', isCompleted: true },
+            { id: 't1_2', text: 'Excavate tank beds (1.5m depth)', isCompleted: false },
+            { id: 't1_3', text: 'Compact soil base', isCompleted: false },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p2',
+      title: 'Phase 2: Plumbing',
+      duration: 'Weeks 3-4',
+      status: 'locked',
+      steps: [
+        {
+          id: 's2',
+          title: 'Drainage Network',
+          icon: Droplets,
+          description: 'Central drainage.',
+          tasks: [
+            { id: 't2_1', text: 'Install bottom drains', isCompleted: false },
+            { id: 't2_2', text: 'Connect to central sump', isCompleted: false },
+          ]
+        }
+      ]
+    }
+  ],
+  // UNIT 6: CROPS (10% Complete)
+  't3_6': [
+    {
+      id: 'p1',
+      title: 'Phase 1: Soil Prep',
+      duration: 'Weeks 1-2',
+      status: 'active',
+      steps: [
+        {
+          id: 's1',
+          title: 'Soil Analysis',
+          icon: Sprout,
+          description: 'Initial corrections.',
+          tasks: [
+            { id: 't1_1', text: 'Collect samples (10ha)', isCompleted: true },
+            { id: 't1_2', text: 'Apply Lime (Calagem)', isCompleted: false },
+            { id: 't1_3', text: 'Apply Organic Matter (Manure)', isCompleted: false },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p2',
+      title: 'Phase 2: Planting',
+      duration: 'Week 3',
+      status: 'locked',
+      steps: [
+        {
+          id: 's2',
+          title: 'Seeding',
+          icon: Sprout,
+          description: 'Maize/Bean intercropping.',
+          tasks: [
+            { id: 't2_1', text: 'Sow Maize rows (80cm spacing)', isCompleted: false },
+            { id: 't2_2', text: 'Sow Bean rows (inter-row)', isCompleted: false },
           ]
         }
       ]
@@ -247,7 +562,7 @@ const TIER_3_ROADMAPS: Record<string, Phase[]> = {
   ]
 };
 
-const TIER_2_ROADMAPS = TIER_3_ROADMAPS; 
+const TIER_2_ROADMAPS = TIER_3_ROADMAPS; // Reuse for simplicity in demo
 
 const Planner: React.FC<PlannerProps> = ({ language, farmTier, initialUnitId }) => {
   // Navigation State
@@ -305,10 +620,18 @@ const Planner: React.FC<PlannerProps> = ({ language, farmTier, initialUnitId }) 
     } else {
       if (selectedUnitId) {
         const roadmapSet = farmTier === 'tier2' ? TIER_2_ROADMAPS : TIER_3_ROADMAPS;
-        const mappedId = selectedUnitId.replace('t2_', 't3_');
-        if (roadmapSet[selectedUnitId]) setPhases(roadmapSet[selectedUnitId]);
-        else if (roadmapSet[mappedId]) setPhases(roadmapSet[mappedId]);
-        else setPhases([{ id: 'p1', title: 'Phase 1: Planning', duration: 'Weeks 1-4', status: 'active', steps: [{ id: 's1', title: 'Initial Assessment', icon: Ruler, description: 'Feasibility study.', tasks: [{id: 't1', text: 'Analyze requirements', isCompleted: false}]}]}]);
+        // Map Tier 2 IDs to Tier 3 IDs for data reuse
+        const mappedId = selectedUnitId.startsWith('t2_') ? selectedUnitId.replace('t2_', 't3_') : selectedUnitId;
+        
+        if (roadmapSet[mappedId]) {
+            setPhases(roadmapSet[mappedId]);
+            // Set active phase to the first one that is active or last one completed
+            const currentPhase = roadmapSet[mappedId].find(p => p.status === 'active') || roadmapSet[mappedId][0];
+            setActivePhaseId(currentPhase.id);
+        } else {
+            // Fallback
+            setPhases([{ id: 'p1', title: 'Phase 1: Planning', duration: 'Weeks 1-4', status: 'active', steps: [{ id: 's1', title: 'Initial Assessment', icon: Ruler, description: 'Feasibility study.', tasks: [{id: 't1', text: 'Analyze requirements', isCompleted: false}]}]}]);
+        }
       }
     }
   }, [farmTier, selectedUnitId]);

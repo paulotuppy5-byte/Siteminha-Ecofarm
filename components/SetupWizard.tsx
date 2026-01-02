@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   ChevronRight, ChevronLeft, Check, LayoutGrid, Tractor, Factory, 
@@ -102,16 +101,16 @@ const SetupWizard: React.FC<SetupWizardProps> = ({ language, onLanguageChange, o
 
   const renderStep2 = () => (
     <div className="space-y-6 animate-fade-in">
-      <h2 className="text-xl font-bold text-gray-900 text-center mb-2">{t.setupStep2}</h2>
+      <h2 className="text-xl font-bold text-black text-center mb-2">{t.setupStep2}</h2>
       <p className="text-center text-gray-600 text-sm mb-6">This helps us provide region-specific insights.</p>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-xs font-bold text-gray-900 uppercase mb-1">State (UF)</label>
+          <label className="block text-xs font-bold text-black uppercase mb-1">State (UF)</label>
           <select 
             value={state}
             onChange={(e) => setState(e.target.value)}
-            className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-embrapa-green text-gray-900 font-medium"
+            className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-embrapa-green text-black font-medium"
           >
             <option value="">Select State...</option>
             <option value="BA">Bahia</option>
@@ -123,21 +122,21 @@ const SetupWizard: React.FC<SetupWizardProps> = ({ language, onLanguageChange, o
         </div>
         
         <div>
-          <label className="block text-xs font-bold text-gray-900 uppercase mb-1">City</label>
+          <label className="block text-xs font-bold text-black uppercase mb-1">City</label>
           <div className="relative">
-             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
              <input 
                type="text" 
                value={city}
                onChange={(e) => setCity(e.target.value)}
                placeholder="Your municipality"
-               className="w-full pl-10 p-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-embrapa-green text-gray-900 font-medium placeholder-gray-400"
+               className="w-full pl-10 p-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-embrapa-green text-black font-medium placeholder-gray-500"
              />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-gray-900 uppercase mb-2">Climate Zone</label>
+          <label className="block text-xs font-bold text-black uppercase mb-2">Climate Zone</label>
           <div className="grid grid-cols-2 gap-3">
             {['Tropical', 'Subtropical', 'Temperate', 'Semi-Arid'].map(c => (
               <button
@@ -146,7 +145,7 @@ const SetupWizard: React.FC<SetupWizardProps> = ({ language, onLanguageChange, o
                 className={`p-3 rounded-lg border text-sm font-bold transition-all ${
                   climate === c 
                     ? 'bg-embrapa-light border-embrapa-green text-embrapa-green' 
-                    : 'bg-white border-gray-200 text-gray-900'
+                    : 'bg-white border-gray-200 text-black'
                 }`}
               >
                 {c}

@@ -265,8 +265,8 @@ If the user asks about weather, you MUST use the \`weather_api\` tool.
         }
         
         // Send tool results back to model
-        const finalResult = await this.chatSession.sendToolResponse({
-             functionResponses: toolResponses
+        const finalResult = await this.chatSession.sendMessage({
+             message: toolResponses.map(r => ({ functionResponse: r }))
         });
         
         return {
