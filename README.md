@@ -101,7 +101,7 @@ npm run dev
 ```
 
 ### Access the App
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open https://ai.studio/apps/drive/1VCRNH3tKq73mKpp-dN45WHu9gA4Zu8PL?fullscreenApplet=true in your browser.
 
 ---
 
