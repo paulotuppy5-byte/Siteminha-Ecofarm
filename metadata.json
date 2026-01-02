@@ -1,0 +1,8 @@
+{
+  "name": "Sisteminha EcoFarm",
+  "description": "A smart farming assistant for the Sisteminha Embrapa integrated food production system. Features plant analysis via Gemini AI, crop planning, and educational resources for small-scale farmers.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
