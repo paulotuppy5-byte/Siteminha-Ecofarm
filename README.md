@@ -566,3 +566,6 @@ npm run build
 MIT License - See LICENSE file for details
 
 **Built with ♥ for circular agriculture in semi-arid Brazil**
+
+
+<!-- Vercel Deployment Build Trigger - Build with updated Vite config -->
