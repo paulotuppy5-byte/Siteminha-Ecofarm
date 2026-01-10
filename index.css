@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px) translateX(-50%);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+/* Custom Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Embrapa Theme Colors */
+:root {
+  --embrapa-green: #208D85;
+  --embrapa-accent: #32B8C6;
+  --embrapa-light: #E8F5F3;
+  --embrapa-soil: #8B4513;
+  --embrapa-water: #1E90FF;
+}
+
+.bg-embrapa-green {
+  background-color: var(--embrapa-green);
+}
+
+.bg-embrapa-accent {
+  background-color: var(--embrapa-accent);
+}
+
+.bg-embrapa-light {
+  background-color: var(--embrapa-light);
+}
+
+.bg-embrapa-soil {
+  background-color: var(--embrapa-soil);
+}
+
+.text-embrapa-green {
+  color: var(--embrapa-green);
+}
+
+.text-embrapa-soil {
+  color: var(--embrapa-soil);
+}
+
+.text-embrapa-water {
+  color: var(--embrapa-water);
+}
+
+.border-embrapa-green {
+  border-color: var(--embrapa-green);
+}
+
+/* Safe Area for Mobile */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Line Clamp Utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
